@@ -1,0 +1,14 @@
+apiVersion: v2
+name: flask-aws-monitor
+description: A Helm chart for Flask AWS monitoring application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - flask
+  - aws
+  - monitoring
+  - python
+home: https://github.com/avigdolrotem/final-devops-project
+sources:
+  - https://github.com/avigdolrotem/final-devops-project
