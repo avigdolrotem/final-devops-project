@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-aws-monitor
+  labels:
+    app: flask-aws-monitor
+    owner: RotemAv
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-aws-monitor
+  template:
+    metadata:
+      labels:
+        app: flask-aws-monitor
+    spec:
+      containers:
+      - name: flask-aws-monitor
+        image: avigdol/flask-aws-monitor:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5001
+          name: http
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_SECRET_ACCESS_KEY
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5001
+          initialDelaySeconds: 120
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5001
+          initialDelaySeconds: 30
+          periodSeconds: 5
