@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'feature/jenkins-pipeline', url: 'https://github.com/avigdolrotem/final-devops-project.git'
+                git branch: 'main', url: 'https://github.com/avigdolrotem/final-devops-project.git'
             }
         }
         
